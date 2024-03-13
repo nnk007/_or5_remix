@@ -44,7 +44,7 @@ jobs:
       - name: 'Rebuild website'
         shell: bash
         run: |
-          npm run i
+          npm i
           npm run build 
       - name: 'Restart server'
         shell: bash
