@@ -41,6 +41,11 @@ jobs:
         run: |
           cd ~/ws
           git pull
+      - name: 'Rebuild website'
+        shell: bash
+        run: |
+          npm run i
+          npm run build 
       - name: 'Restart server'
         shell: bash
         run: |
