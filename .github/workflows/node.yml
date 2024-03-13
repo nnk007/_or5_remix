@@ -30,6 +30,7 @@ jobs:
         path: |
           public
           build
+        retention-days: 0
 
   reload_website:
     name: 'Update website'
@@ -43,6 +44,6 @@ jobs:
       - name: 'Restart server'
         shell: bash
         run: |
-          screen -X -S "WS" quit
-          screen -S "WS" -d -m npm start
+          screen -S "WS" -X at "#" stuff '^C'
+          screen -S "WS" -X stuff 'npm start\n'
 
