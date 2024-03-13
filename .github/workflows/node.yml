@@ -45,5 +45,6 @@ jobs:
         shell: bash
         run: |
           screen -S "WS" -X at "#" stuff '^C'
-          screen -S "WS" -X stuff 'npm start\n'
+          screen -S "WS" -X at "#" stuff 'cd ~/ws \n'
+          screen -S "WS" -X stuff 'npm start \n'
 
