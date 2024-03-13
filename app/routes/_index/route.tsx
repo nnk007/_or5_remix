@@ -37,8 +37,10 @@ function Main() {
     <>
       {/* about */}
       <div className='relative h-[400px]' id='about'>
-        <div className='absolute z-10 h-full w-full flex justify-center items-center text-2xl drop-shadow-[0_0_2px_#000] font-semibold text-white'>Building web apps that might work.</div>
-        <img className='object-cover' src={'/bg.jpg'} alt='bg' />
+        <div className='absolute z-10 h-full w-full flex justify-center items-center text-2xl drop-shadow-[0_0_2px_#000] font-semibold text-white'>
+          <div className="px-2 text-center">Building web apps that might work.</div>
+        </div>
+        <img className='h-full w-full object-cover' src={'/bg.jpg'} alt='bg' />
       </div>
       {/* proj previews */}
       <span id='projects'>
