@@ -10,7 +10,6 @@ on:
     
 jobs:
   build:
-
     runs-on: [self-hosted]
     steps:
     - name: 'Checkout repository'
@@ -22,5 +21,28 @@ jobs:
         cache: 'npm'
     - name: 'Install dependencies'
       run: npm ci
-    - name: Build artifacts
+    - name: 'Build artifacts'
       run: npm run build
+    - name: 'Upload artifacts'
+      uses: actions/upload-artifact@v4
+      with:
+        name: built_artifacts
+        path: |
+          public
+          build
+
+  reload_website:
+    name: 'Update website'
+    runs-on: [self-hosted] 
+    steps:
+      - name: 'Sync commits'
+        shell: bash
+        run: |
+          cd ~/ws
+          git pull
+      - name: 'Restart server'
+        shell: bash
+        run: |
+          screen -X -S "WS" quit
+          screen -S "WS" -d -m npm start
+
