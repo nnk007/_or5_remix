@@ -13,7 +13,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
         
 
@@ -29,15 +29,3 @@ jobs:
       run: npm ci
     - name: Build artifacts
       run: npm run build
-    - name: 'Archive server artifacts'
-      uses: actions/upload-artifact@v4
-      with:
-        name: server_build
-        path: build
-        retention-days: 0.1
-    - name: Archive client artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: client_build
-        path: public
-        retention-days: 0.1
