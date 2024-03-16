@@ -1,22 +1,39 @@
 import type { LinksFunction } from "@remix-run/node";
 import {
+  Link,
   Links,
   LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteError,
 } from "@remix-run/react";
 
 import stylesheet from "~/tailwind.css";
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
 ];
-
-// export const links: LinksFunction = () => [
-//   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
-// ];
-
+export function ErrorBoundary() {
+  const error = useRouteError();
+  console.error(error);
+  return (
+    <html lang="en">
+      <head>
+        <title>UI render error!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body className="w-screen h-screen">
+        <div className="flex flex-col gap-2 items-center justify-center w-full h-full">
+          <div className="text-red-500 text-3xl font-semibold">Unexpected UI Error !</div>
+          <Link to="/" className="text-xl hover:underline">Return to index</Link>
+        </div>
+        <Scripts />
+      </body>
+    </html>
+  );
+}
 export default function App() {
   return (
     <html lang="en">
