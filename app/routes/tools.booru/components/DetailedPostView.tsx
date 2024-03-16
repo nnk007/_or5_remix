@@ -14,16 +14,16 @@ export default function DeatiledPostView({ post, active, onClose: closeView }: {
                         </span>
                     </div>
                 </div>
-                <div className=" w-full grid grid-cols-[auto_minmax(200px,1fr)] grid-rows-1 grid-flow-col">
-                    <div className="h-full">
+                <div className="h-full w-full grid grid-rows-[minmax(auto,50%)_minmax(200px,1fr)] sm:grid-cols-[auto_minmax(200px,1fr)] sm:grid-rows-1 grid-flow-col">
+                    <div className="sm:h-full">
                         {post.file_url ?
                             post.tag_string.includes('video') ?
                                 <video className="min-h-[200px] h-full object-contain" src={post.file_url} controls={true} /> :
-                                <img className="min-h-[200px] object-contain h-full w-min" width={1000} height={1000} src={post.large_file_url ? post.large_file_url : post.file_url} alt="" /> :
+                                <img className="min-h-[200px] object-contain h-full w-full" width={1000} height={1000} src={post.large_file_url ? post.large_file_url : post.file_url} alt="" /> :
                             <div className="w-[200px] h-full flex items-center justify-center text-black">{`Can't access image`}</div>
                         }
                     </div>
-                    <div className="p-2 w-full h-full shadow-[0px_0px_10px_-1px] shadow-black flex flex-col">
+                    <div className="p-2 w-full h-full shadow-[0px_0px_10px_-1px] shadow-black flex flex-col overflow-auto">
                         <div className="text-black"><span className="font-semibold">Post ID: </span>{post.id}</div>
                         <div className="flex flex-col gap-1">
                             <span className="font-semibold text-black">Post tags:</span>

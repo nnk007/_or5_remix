@@ -15,7 +15,7 @@ export const headers: HeadersFunction = ({
 });
 export default function Gallery({ posts, onPostOpen }: { posts: BooruPost[], onPostOpen: (post: BooruPost) => any }) {
     return (
-        <div className={`select-none grid grid-cols-5 grid-rows-[repeat(4,minmax(400px,400px))] gap-2 p-2 bg-white overflow-y-scroll h-full`}>
+        <div className={`select-none grid grid-cols-2 sm:grid-cols-5 grid-rows-[repeat(10,minmax(400px,400px))] sm:grid-rows-[repeat(4,minmax(400px,400px))] gap-2 p-2 bg-white overflow-y-scroll h-full`}>
             {
                 posts.map((post, i, a) => {
                     return <Post key={post.id} post={post} onOpen={() => onPostOpen(post)} />
@@ -39,8 +39,10 @@ function Post({ post, onOpen: openPost }: { post: BooruPost, onOpen: () => any }
     return (
         <div
             className={`rounded-md outline-1 outline outline-[#5b8664] w-full h-full overflow-hidden relative transition-[outline] hover:outline hover:outline-[#645b86] hover:outline-4`}
-            onMouseEnter={() => { setHovering(true); }}
-            onMouseLeave={() => setHovering(false)}>
+            onMouseEnter={() => { setHovering(true);}}
+            onMouseLeave={() => setHovering(false)}
+            onClick={()=>{openPost()}}
+            >
             <div className={`z-10 absolute w-full h-10 bottom-0 left-0 flex justify-evenly items-center bg-[#645b86] transition-all ${!hovering ? 'translate-y-full' : 'translate-y-0'}`}>
                 <div
                     className='flex items-center cursor-pointer'
