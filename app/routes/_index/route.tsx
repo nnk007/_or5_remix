@@ -1,6 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
-import { useState } from "react";
-import Section from "./section";
+import { createContext, useEffect, useState } from "react";
+import Projects from "./projects";
 export const meta: MetaFunction = () => {
   return [
     { title: "OR5" },
@@ -8,27 +8,39 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+export const isMobileContext = createContext<boolean>(false);
+
 export default function Home() {
   const mobile = true;//!window.matchMedia('(min-width:768px)').matches;
   const [navbarVisible, setNV] = useState(false);
+  const [isMobile,setIsMobile] = useState(false);
+  useEffect(()=>{
+    setIsMobile(window.innerWidth <= 640);
+    window.addEventListener('resize',()=>{
+      console.log(window.innerWidth,window.outerWidth)
+      setIsMobile(window.innerWidth <= 640);
+    })
+  },[]);
   return (
-    <div className='grid sm:grid-flow-col sm:grid-cols-[auto_1fr] bg-white max-h-screen'>
-      <div className={`fixed top-0 left-0 sm:static bg-white z-50 w-full border-r border-black grid sm:flex flex-col text-black text-2xl sm:gap-4 text-center sm:h-full overflow-hidden transition-all`} style={{ gridTemplateRows: navbarVisible ? 'auto 10rem' : 'auto 0rem' }}>
-        <button className='p-4' onClick={() => { if (mobile) setNV(!navbarVisible)}}>
-          Or5anisation
-          <div className='text-sm bg-gradient-to-tr from-blue-400 to-purple-400 text-transparent bg-clip-text'>now in React</div>
-        </button>
-        <div className={`flex flex-col w-full items-center gap-1`}>
-          <a href="#about" className='hover:underline'>Home</a>
-          <a href="#projects" className='hover:underline'>Projects</a>
-          <a href="#tools" className='hover:underline'>Tools</a>
-          <a href="#contact" className='hover:underline'>Contact</a>
+    <isMobileContext.Provider value={isMobile}>
+      <div className='grid sm:grid-flow-col sm:grid-cols-[auto_1fr] bg-white max-h-screen'>
+        <div className={`fixed top-0 left-0 sm:static bg-white z-50 w-full border-r border-black grid sm:flex flex-col text-black text-2xl sm:gap-4 text-center sm:h-full overflow-hidden transition-all`} style={{ gridTemplateRows: navbarVisible ? 'auto 10rem' : 'auto 0rem' }}>
+          <button className='p-4' onClick={() => { if (mobile) setNV(!navbarVisible) }}>
+            Or5anisation
+            <div className='text-sm bg-gradient-to-tr from-blue-400 to-purple-400 text-transparent bg-clip-text'>now in React</div>
+          </button>
+          <div className={`flex flex-col w-full items-center gap-1`}>
+            <a href="#about" className='hover:underline'>Home</a>
+            <a href="#projects" className='hover:underline'>Projects</a>
+            <a href="#tools" className='hover:underline'>Tools</a>
+            <a href="#contact" className='hover:underline'>Contact</a>
+          </div>
         </div>
-      </div>
-      <div className='overflow-y-auto max-h-screen scroll-smooth'>
-        <Main />
-      </div>
-    </div >
+        <div className='overflow-y-auto max-h-screen scroll-smooth'>
+          <Main />
+        </div>
+      </div >
+    </isMobileContext.Provider>
   )
 }
 
@@ -44,7 +56,8 @@ function Main() {
       </div>
       {/* proj previews */}
       <span id='projects'>
-        <Section
+        <h2 className="flex px-4 pt-4 pb-2 text-3xl"><a href="#projects"># Projects</a></h2>
+        <Projects
           items={[{
             name: 'Consulting firm landing page',
             description: `Website developed for a small team of volunteers seeking to employ their skills
@@ -67,6 +80,7 @@ function Main() {
       </span>
       {/* tools */}
       <div className='text-black shadow-md pb-2 rounded-b-xl' id='tools'>
+        <h2 className="flex px-4 pt-4 pb-2 text-3xl"><a href="#tools"># Tools</a></h2>
         <Tool tool={
           {
             name: '*Booru viewer',
@@ -118,15 +132,15 @@ function Main() {
 
 function Tool({ tool, alt }: { tool: { name: string, img_src: string, desc: string, a?: string }, alt?: boolean }) {
   return (
-    <div className='grid grid-flow-col grid-cols-4 grid-rows-1'>
-      <div className={`text-2xl font-semibold flex items-center justify-center ${alt ? 'col-start-2' : ''}`}>{tool.name}</div>
-      <div className='w-full'>
+    <div className='grid grid-flow-row sm:grid-flow-col grid-cols-1 sm:grid-cols-4 grid-rows-3 sm:grid-rows-1'>
+      <div className={`text-2xl font-semibold flex items-center justify-center  sm:row-start-auto ${alt ? 'sm:col-start-2' : ''}`}>{tool.name}</div>
+      <div className='w-full flex rounded-md shadow-md overflow-hidden'>
         <a href={tool.a || ""} className='relative'>
-          <div className='absolute hover:bg-black/50 text-transparent hover:text-white flex items-center justify-center underline h-full w-full'>Open</div>
+          <div className='absolute h-full w-full flex items-center justify-center hover:bg-black/50 text-transparent hover:text-white underline'>Open</div>
           <img className='w-full object-contain' src={tool.img_src} alt="" height={720} width={1280} />
         </a>
       </div>
-      <div className='col-span-2 flex items-center justify-center p-4 text-center'>{tool.desc}
+      <div className='sm:col-span-2 flex items-center justify-center p-4 text-center'>{tool.desc}
       </div>
     </div>
   )
