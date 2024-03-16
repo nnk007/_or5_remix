@@ -17,8 +17,8 @@ export default function Login() {
         { word: 'secrets', color: 'from-[#a43333] to-[#ef5350]' }
     ];
     return (
-        <div className="grid grid-cols-[60%_40%] grid-rows-1 w-full h-full bg-gradient-to-br from-blue-100 via-red-100 to-green-100 bg-[length:400%_400%] animate-[bgdrift_10s_ease_infinite] text-black text-opacity-60">
-            <div className="flex flex-col justify-center text-7xl ml-10">
+        <div className="flex items-center justify-center sm:grid sm:grid-cols-[60%_40%] sm:grid-rows-1 w-full h-full bg-gradient-to-br from-blue-100 via-red-100 to-green-100 bg-[length:400%_400%] animate-[bgdrift_10s_ease_infinite] text-black text-opacity-60">
+            <div className="hidden sm:flex flex-col justify-center text-7xl ml-10">
                 <div className="flex items-center whitespace-pre-wrap overflow-hidden">Share your <Text items={items} /></div>
                 <div className="">effortlessly</div>
             </div>
