@@ -8,6 +8,7 @@ import compression from "compression";
 import express from "express";
 import morgan from "morgan";
 import sourceMapSupport from "source-map-support";
+import { isbot } from "isbot";
 
 /*
 import { OAuth2Client } from 'google-auth-library';
@@ -49,6 +50,11 @@ const remixHandler =
     });
 
 const app = express();
+
+app.use((req,res,next)=>{
+  // should ipban abusers
+  if(!isbot(req.headers["user-agent"])) next();
+})
 
 app.use(compression());
 
