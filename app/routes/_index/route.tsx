@@ -13,18 +13,18 @@ export const isMobileContext = createContext<boolean>(false);
 export default function Home() {
   const mobile = true;//!window.matchMedia('(min-width:768px)').matches;
   const [navbarVisible, setNV] = useState(false);
-  const [isMobile,setIsMobile] = useState(false);
-  useEffect(()=>{
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
     setIsMobile(window.innerWidth <= 640);
-    window.addEventListener('resize',()=>{
-      console.log(window.innerWidth,window.outerWidth)
+    window.addEventListener('resize', () => {
+      console.log(window.innerWidth, window.outerWidth)
       setIsMobile(window.innerWidth <= 640);
     })
-  },[]);
+  }, []);
   return (
     <isMobileContext.Provider value={isMobile}>
       <div className='grid sm:grid-flow-col sm:grid-cols-[auto_1fr] bg-white max-h-screen'>
-        <div className={`fixed top-0 left-0 sm:static bg-white z-50 w-full border-r border-black grid sm:flex flex-col text-black text-2xl sm:gap-4 text-center sm:h-full overflow-hidden transition-all`} style={{ gridTemplateRows: navbarVisible ? 'auto 10rem' : 'auto 0rem' }}>
+        <div className={`fixed top-0 left-0 sm:static bg-white z-50 w-full sm:shadow-sm sm:shadow-black grid sm:flex flex-col text-black text-2xl sm:gap-4 text-center sm:h-full overflow-hidden transition-all`} style={{ gridTemplateRows: navbarVisible ? 'auto 10rem' : 'auto 0rem' }}>
           <button className='p-4' onClick={() => { if (mobile) setNV(!navbarVisible) }}>
             Or5anisation
             <div className='text-sm bg-gradient-to-tr from-blue-400 to-purple-400 text-transparent bg-clip-text'>now in React</div>
@@ -81,38 +81,40 @@ function Main() {
       {/* tools */}
       <div className='text-black shadow-md pb-2 rounded-b-xl' id='tools'>
         <h2 className="flex px-4 pt-4 pb-2 text-3xl"><a href="#tools"># Tools</a></h2>
-        <Tool tool={
-          {
-            name: '*Booru viewer',
-            desc: `Frontend for a custom implementation of Donmai's API, which allows for a more broad list of search options, otherwise locked by a paid subscription. Locked to SFW version of the site`,
-            img_src: '/booru.png',
-            a:'/tools/booru'
-          }
-        } />
-        <Tool alt tool={
-          {
-            name: `File storage`,
-            desc: `FTP with extra steps and not actually working`,
-            img_src: `/ft.png`,
-            a:'/tools/ftp'
-          }
-        } />
-        <Tool tool={
-          {
-            name: `Cat gallery`,
-            desc: `Previously a simple wall of cat pictures, currently a gallery built to streamline cat picture storage and distribution. UGC rolls back every week.`,
-            img_src: `/cats.png`,
-            a:'/tools/cats'
-          }
-        } />
-        <Tool alt tool={
-          {
-            name:`Chat prototype`,
-            desc:`Prototype of a chat app, dropped development`,
-            img_src:`/chat.png`,
-            a:'/tools/chat'
-          }
-        }/>
+        <div className={"sm:pl-2"}>
+          <Tool tool={
+            {
+              name: '*Booru viewer',
+              desc: `Frontend for a custom implementation of Donmai's API, which allows for a more broad list of search options, otherwise locked by a paid subscription. Locked to SFW version of the site`,
+              img_src: '/booru.png',
+              a: '/tools/booru'
+            }
+          } />
+          <Tool alt tool={
+            {
+              name: `File storage`,
+              desc: `FTP with extra steps and not actually working`,
+              img_src: `/ft.png`,
+              a: '/tools/ftp'
+            }
+          } />
+          <Tool tool={
+            {
+              name: `Cat gallery`,
+              desc: `Previously a simple wall of cat pictures, currently a gallery built to streamline cat picture storage and distribution. UGC rolls back every week.`,
+              img_src: `/cats.png`,
+              a: '/tools/cats'
+            }
+          } />
+          <Tool alt tool={
+            {
+              name: `Chat prototype`,
+              desc: `Prototype of a chat app, dropped development`,
+              img_src: `/chat.png`,
+              a: '/tools/chat'
+            }
+          } />
+        </div>
       </div>
       {/* contact */}
       <div className='h-96 flex flex-col text-black font-semibold text-2xl items-center justify-center' id='contact'>
