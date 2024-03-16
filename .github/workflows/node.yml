@@ -36,11 +36,14 @@ jobs:
     name: 'Update website'
     runs-on: [self-hosted] 
     steps:
-      - name: 'Sync commits'
+      - name: 'Stash local edits'
         shell: bash
         run: |
+          git stash
           cd ~/ws
-          git pull
+      - name: 'Sync commits'
+        shell: bash
+        run: git pull
       - name: 'Rebuild website'
         shell: bash
         run: |
