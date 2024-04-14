@@ -85,7 +85,7 @@ function Main() {
           <Tool tool={
             {
               name: '*Booru viewer',
-              desc: `Frontend for a custom implementation of Donmai's API, which allows for a more broad list of search options, otherwise locked by a paid subscription. Locked to SFW version of the site`,
+              desc: `Custom frontend utilising Donmai API. Although locked to SFW version, be aware that some images may be NSFW`,
               img_src: '/booru.png',
               a: '/tools/booru'
             }
@@ -114,6 +114,14 @@ function Main() {
               a: '/tools/chat'
             }
           } />
+          <Tool tool={
+            {
+              name:`File server`,
+              desc: `Simple download-only file server`,
+              img_src:`/dogserver.png`,
+              a:'https://github.com/nnk007/dog'
+            }
+          }/>
         </div>
       </div>
       {/* contact */}
