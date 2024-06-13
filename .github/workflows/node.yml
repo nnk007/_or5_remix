@@ -32,30 +32,3 @@ jobs:
           build
         retention-days: 0
 
-  reload_website:
-    name: 'Update website'
-    runs-on: [self-hosted] 
-    steps:
-      - name: 'Enter folder'
-        shell: bash
-        run: cd ~/ws
-      - name: 'Stash local edits'
-        shell: bash
-        run: git stash
-      - name: 'Sync commits'
-        shell: bash
-        run: git pull
-      - name: 'Install deps'
-        shell: 'bash'
-        run: npm i
-      - name: 'Rebuild website'
-        shell: bash
-        run: npm run build 
-      - name: 'Restart server'
-        shell: bash
-        run: |
-          screen -S "WS" -X at "#" stuff '^C' &&
-          screen -S "WS" -X at "#" stuff 'cd ~/ws \n' &&
-          screen -S "WS" -X at "#" stuff 'echo "Restart" \n' &&
-          screen -S "WS" -X stuff 'npm start \n'
-
